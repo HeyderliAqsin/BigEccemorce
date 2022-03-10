@@ -66,11 +66,7 @@
                     <input class="form-check-input" asp-for="IsSlider" /> @Html.DisplayNameFor(model => model.IsSlider)
                 </label>
             </div>
-            <div class="form-group">
-                <label asp-for="ThumbnailPicture" class="control-label"></label>
-                <input asp-for="ThumbnailPicture" class="form-control" />
-                <span asp-validation-for="ThumbnailPicture" class="text-danger"></span>
-            </div>
+       
         @*     <div class="form-group">
                 <label asp-for="CoverPhotoId" class="control-label"></label>
                 <input asp-for="CoverPhotoId" class="form-control" />
@@ -87,8 +83,9 @@
         </form>
     </div>
     <div class="col-md-7">
-        <form id="imageUpload" action="/target" class="dropzone">
-            </form>
+     @*   <form id="imageUpload" action="/target" class="dropzone">
+            </form>*@
+       <form class="dropzone" id="imageUpload" autocomplete="off" enctype="multipart/form-data"></form>
     </div>
 </div>
 
@@ -101,23 +98,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/6.0.0-beta.2/dropzone-min.js"> 
     </script>
     <script>
+        $(document).ready(function(){
         let myDropzone = new Dropzone("#imageUpload",{
-        Dropzone.options.imageUpload{
+            url:"/ShopAdminPanel/Product/Create",
             autoProcessQueue:false,
-            url:"/ShopAdminPanel/product/create",
+            uploadMultiple:true,
+            parallelUploads:100,
+            maxFiles:100,
+
             init:function(){
                 var myDropzone=this;
                 $(".btn-upload").click(function(e){
                     e.preventDefault()
-                    myDropzone.proccessQueue()
+                    e.stopPropagation()
+                    myDropzone.processQueue()
                 });
-                this.on('sending',function(file,xhr,formData)){
+                this.on("sendingmultiple",function(file,xhr,formData){
                     var data=$("#createForm").serializeArray();
                     $.each(data,function(key,el){
                         formData.append(el.name,el.value)
                     })
+                });
+                this.on("successmultiple",function(files,response){
+
+                });
+                this.on("errormultiple",function(files,response){
+
+                });
                 }
-            }
-        })  
+        }); 
+        });
     </script>
 }

@@ -28,6 +28,17 @@ namespace Web.Controllers
             return View(vm);
         }
 
+        public async Task<IActionResult> OpenModal(int? id)
+        {
+            if (id == null) return NotFound();
+          var selectedProduct= await _productManager.GetById(id.Value);
+            if (selectedProduct == null) return NotFound();
+
+            return PartialView("_ProductModal",selectedProduct);
+        }
+
+
+
         public IActionResult Privacy()
         {
             return View();
