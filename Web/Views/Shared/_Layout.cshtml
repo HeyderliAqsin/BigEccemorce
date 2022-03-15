@@ -15,6 +15,7 @@
       <link rel="stylesheet" href="/assets/css/animate.css">
       <link rel="stylesheet" href="/assets/css/owl-carousel.css">
       <link rel="stylesheet" href="/assets/css/swiper-bundle.css">
+      <link rel="stylesheet" href="/assets/css/ui-range-slider.css">
       <link rel="stylesheet" href="/assets/css/backtotop.css">
       <link rel="stylesheet" href="/assets/css/magnific-popup.css">
       <link rel="stylesheet" href="/assets/css/nice-select.css">
@@ -188,28 +189,7 @@
                         </div>
                         <div class="col-xl-5 col-lg-4 d-none d-lg-block">
                             <div class="header__search">
-                                <form action="#">
-                                    <div class="header__search-box">
-                                        <input class="search-input" type="text" placeholder="I'm shopping for...">
-                                        <button class="button" type="submit"><i class="far fa-search"></i></button>
-                                    </div>
-                                    <div class="header__search-cat">
-                                        <select>
-                                            <option>All Categories</option>
-                                            <option>Best Seller Products</option>
-                                            <option>Top 10 Offers</option>
-                                            <option>New Arrivals</option>
-                                            <option>Phones &amp; Tablets</option>
-                                            <option>Electronics &amp; Digital</option>
-                                            <option>Fashion &amp; Clothings</option>
-                                            <option>Jewelry &amp; Watches</option>
-                                            <option>Health &amp; Beauty</option>
-                                            <option>Sound &amp; Speakers</option>
-                                            <option>TV &amp; Audio</option>
-                                            <option>Computers</option>
-                                        </select>
-                                    </div>
-                                </form>
+                              @await Component.InvokeAsync("Category",new{IsSearch=true})
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-5 col-md-8 col-sm-8">
@@ -681,8 +661,8 @@
       <script src="/assets/js/isotope-pkgd.js"></script>
       <script src="/assets/js/imagesloaded-pkgd.js"></script>
       <script src="/assets/js/ajax-form.js"></script>
-      <script src="/assets/js/main.js"></script>
       @await RenderSectionAsync("Scripts", required:false)
+      <script src="/assets/js/main.js"></script>
 
    </body>
 </html>

@@ -1,0 +1,29 @@
+﻿@model SearchLayoutVM
+
+<form asp-controller="Product" asp-action="Index" method="get" >
+    <div class="header__search-box">
+        <input type="hidden" asp-for="categoryId" />
+        <input class="search-input"  type="text" name="searchTerm" placeholder="I'm shopping for...">
+        <button class="button" type="submit"><i class="far fa-search"></i></button>
+    </div>
+@*    <div class="header__search-cat">
+        <select name="NewCategoryId">
+            <option value="0">All Categories</option>
+
+            @foreach(var cat in Model.Categories)
+            {
+             var currentCategory=cat.CategoryRecords.FirstOrDefault(c=>c.LanguageID==1);
+            <option value="@cat.Id">@currentCategory.Name</option>
+                
+            }
+        </select>
+    </div>*@
+</form>
+
+
+<script>
+    const myUrl= document.location.search;
+    var url= new URLSearchParams(myUrl)
+    document.querySelector(".search-input").value=url.get("searchTerm")
+
+</script>

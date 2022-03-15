@@ -150,7 +150,7 @@ namespace Web.Areas.ShopAdminPanel.Controllers
             var model = new ProductActionVM
             {
                 ProductID = !string.IsNullOrEmpty(collection["ProductID"]) ? int.Parse(collection["ProductID"]) : 0,
-                CategoryID = !string.IsNullOrEmpty(collection["CategoryID"]) ? int.Parse(collection["CategoryID"]) : 0,
+                CategoryID = !string.IsNullOrEmpty(collection["CategoryID"]) ? int.Parse(collection["CategoryID"]) : 1,
                 Price = int.Parse(collection["Price"]),
                 Discount = !string.IsNullOrEmpty(collection["Discount"]) ? int.Parse(collection["Discount"]) : 0,
                 StockQuantity = int.Parse(collection["StockQuantity"]),

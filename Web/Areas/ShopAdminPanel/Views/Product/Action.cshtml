@@ -2,7 +2,8 @@
 
 @{
     ViewData["Title"] = "Action";
-    if(Model !=null){
+    if (Model != null)
+    {
         if (Model.ProductID > 0)
         {
             Model.PageTitle = "Edit Product";
@@ -15,7 +16,7 @@
 
 }
 
-    <h1>@Model.PageTitle</h1>
+<h1>@Model.PageTitle</h1>
 
 <h4>Product</h4>
 <hr />
@@ -30,7 +31,7 @@
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-               <div class="form-group">
+            <div class="form-group">
                 <label asp-for="Summary" class="control-label"></label>
                 <input asp-for="Summary" class="form-control" />
                 <span asp-validation-for="Summary" class="text-danger"></span>
@@ -40,17 +41,17 @@
                 <input asp-for="Discount" class="form-control" />
                 <span asp-validation-for="Discount" class="text-danger"></span>
             </div>
-               <div class="form-group">
+            <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-               <div class="form-group">
+            <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control"></textarea> 
+                <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-        
+
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="IsFeatured" /> @Html.DisplayNameFor(model => model.IsFeatured)
@@ -66,12 +67,12 @@
                     <input class="form-check-input" asp-for="IsSlider" /> @Html.DisplayNameFor(model => model.IsSlider)
                 </label>
             </div>
-       
-        @*     <div class="form-group">
+
+            @*     <div class="form-group">
                 <label asp-for="CoverPhotoId" class="control-label"></label>
                 <input asp-for="CoverPhotoId" class="form-control" />
                 <span asp-validation-for="CoverPhotoId" class="text-danger"></span>
-            </div>*@
+                </div>*@
             <div class="form-group">
                 <label asp-for="StockQuantity" class="control-label"></label>
                 <input asp-for="StockQuantity" class="form-control" />
@@ -83,9 +84,9 @@
         </form>
     </div>
     <div class="col-md-7">
-     @*   <form id="imageUpload" action="/target" class="dropzone">
+        @*   <form id="imageUpload" action="/target" class="dropzone">
             </form>*@
-       <form class="dropzone" id="imageUpload" autocomplete="off" enctype="multipart/form-data"></form>
+        <form class="dropzone" id="imageUpload" autocomplete="off" enctype="multipart/form-data"></form>
     </div>
 </div>
 
@@ -94,39 +95,44 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/6.0.0-beta.2/dropzone-min.js"> 
-    </script>
-    <script>
-        $(document).ready(function(){
-        let myDropzone = new Dropzone("#imageUpload",{
-            url:"/ShopAdminPanel/Product/Create",
-            autoProcessQueue:false,
-            uploadMultiple:true,
-            parallelUploads:100,
-            maxFiles:100,
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/6.0.0-beta.2/dropzone-min.js">
 
-            init:function(){
-                var myDropzone=this;
-                $(".btn-upload").click(function(e){
-                    e.preventDefault()
-                    e.stopPropagation()
-                    myDropzone.processQueue()
-                });
-                this.on("sendingmultiple",function(file,xhr,formData){
-                    var data=$("#createForm").serializeArray();
-                    $.each(data,function(key,el){
-                        formData.append(el.name,el.value)
-                    })
-                });
-                this.on("successmultiple",function(files,response){
+</script>
+<script>
+            $(document).ready(function(){
+            let myDropzone = new Dropzone("#imageUpload",{
+                url:"/ShopAdminPanel/Product/Create",
+                autoProcessQueue:false,
+                uploadMultiple:true,
+                parallelUploads:100,
+                maxFiles:100,
+                addRemoveLinks:true,    
 
-                });
-                this.on("errormultiple",function(files,response){
+                init:function(){
+                    var myDropzone=this;
+                    $(".btn-upload").click(function(e){
+                        e.preventDefault()
+                        e.stopPropagation()
+                        myDropzone.processQueue()
+                    });
+                      
+                    this.on("sendingmultiple",function(file,xhr,formData){
+                        var data=$("#createForm").serializeArray();
+                        $.each(data,function(key,el){
+                            formData.append(el.name,el.value)
+                        })
+                    });
+                    this.on("successmultiple",function(files,response){
 
-                });
-                }
-        }); 
-        });
-    </script>
+                    });
+                    this.on("errormultiple",function(files,response){
+
+                    });
+                    }
+            });
+            });
+</script>
 }

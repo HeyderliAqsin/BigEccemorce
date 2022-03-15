@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Services;
+using Web.ViewModels;
 
 namespace Web.ViewComponents
 {
@@ -13,9 +14,18 @@ namespace Web.ViewComponents
             _categoryManager = categoryManager;
         }
 
-        public ViewViewComponentResult Invoke()
+        public ViewViewComponentResult Invoke(bool IsSearch,int? categoryId) 
         {
+            if (IsSearch)
+            {
+                SearchLayoutVM vm = new()
+                {
+                    categoryId = categoryId,
+                };
+                return View("_SearchForm",vm);
+            }
             return View(_categoryManager.GetAll(c => c.IsFeatured));
+
         }
     }
 }

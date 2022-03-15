@@ -57,19 +57,20 @@ namespace Services
         public async Task<List<Product>> SearchProduct(string? q, int? categoryId, decimal? minPrice, decimal? maxPrice, int? sortBy)
         {
             var products = _context.Products
-                .Where(c => c.IsDeleted)
+                .Where(c => !c.IsDeleted)
                 .Include(c => c.Category)
                 .Include(c => c.ProductRecords)
                 .Include(c => c.ProductPictures).ThenInclude(c => c.Picture)
                 .AsQueryable();
             if (!string.IsNullOrWhiteSpace(q))
             {
-                products = products.Where(c => c.ProductRecords.Any(c => c.Name.ToLower().Contains(q.ToLower())));
+                products = products.Where(c => c.ProductRecords.Any(c=>c.LanguageId==1 && c.Name.ToLower().Contains(q.ToLower())));
             }
             if (categoryId.HasValue)
             {
                 products = products.Where(c => c.CategoryId == categoryId);
             }
+           
             if (minPrice.HasValue && maxPrice.HasValue)
             {
                 products = products.Where(c => c.Price >= minPrice && c.Price <= maxPrice);
@@ -84,11 +85,9 @@ namespace Services
                     case 2:
                         products = products.OrderBy(c => c.Price);
                         break;
-                    case 3:
-                        products = products.OrderByDescending(c => c.PublishDate);
-                        break;
-
                     default:
+                        products = products.OrderByDescending(c => c.PublishDate);
+
                         break;
                 }
             }
